@@ -1,0 +1,34 @@
+{{#if project.ProjectID}}
+<ul class="nav nav-underline menu-2 d-flex">
+    <li class="nav-item">
+        <a class="nav-link mx-2 {{{n1}}}" href="/project/{{project.ProjectID}}">Overview</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link mx-2 {{{n2}}}" href="/project/{{project.ProjectID}}/requirement/">Requirements</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link mx-2 {{{n3}}}" href="/project/{{project.ProjectID}}/release?statusFilter=open">Releases</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link mx-2 {{{n7}}}" href="/project/{{project.ProjectID}}/test-plan">Test Plans</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link mx-2 {{{n4}}}" href="/project/{{project.ProjectID}}/module">Modules</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link mx-2 {{{n5}}}" href="/project/{{project.ProjectID}}/test-case">Test Cases</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link mx-2 {{{n6}}}" href="/project/{{project.ProjectID}}/test-run">Test Runs</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link mx-2 {{{n8}}}" href="/project/{{project.ProjectID}}/issue">Issues</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link mx-2 {{{n9}}}" href="/project/{{project.ProjectID}}/report">Reports</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link mx-2 {{{n10}}}" href="/project/{{project.ProjectID}}">Activity log</a>
+    </li>
+</ul>
+{{/if}}

@@ -1,0 +1,650 @@
+<div class="content px-3">
+    {{>navigation}}
+    <div class="container">
+        <div class="row">
+            <div class="col left-col w-100 pe-0">
+                <div class="container bg-white rounded-top mt-3 py-3">
+                    <div class="row d-flex justify-content-between">
+                        <div class="col my-auto">
+                            <ul class="nav nav-underline menu-2 m-0">
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link active border-danger" aria-current="page" href="#">Reports</a>
+                                </li>
+                                <li class="nav-item mx-2">
+                                    <a class="nav-link" href="#">Intergration Reports</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col right-side d-flex justify-content-end">
+                            <a href="#" class="guide mx-2 my-auto">
+                                <div class="text-center">
+                                    <img src="/images/guide.png" alt="" style="width: 2rem" />
+                                    <br />
+                                    <span>Guide</span>
+                                </div>
+                            </a>
+
+                            <a href="#" class="mx-2 my-auto d-flex">
+                                <i class="bi bi-archive me-2"></i>
+                                Archived
+                            </a>
+
+                            <button type="button" class="btn btn-danger btn-graph ms-4 my-auto" data-bs-toggle="modal"
+                                data-bs-target="#addReport" style="width: 12rem">
+                                <i class="bi bi-plus"></i> Add Report
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container bg-white d-flex">
+                    {{!-- <div class="w-25 d-flex py-3">
+                        <span class="my-auto">Show</span>
+                        <select class="form-select mx-2 my-auto" style="
+                    background-color: #f5f5f5;
+                    height: 2.5rem;
+                    width: 10rem;
+                " aria-label="Default select example">
+                            <option selected>10</option>
+                            <option value="1">20</option>
+                            <option value="2">30</option>
+                            <option value="3">50</option>
+                            <option value="3">100</option>
+                        </select>
+                        <span class="my-auto">entries</span>
+                    </div> --}}
+                    <div class="input-group mb-3 w-50 px-5 my-auto">
+
+
+                        <form action="" class="search-report  w-100">
+                            <input type="text" class="form-control" placeholder="Search by Title"
+                                aria-label="Recipient's username" aria-describedby="button-addon2"
+                                name="reportKeyword" />
+                        </form>
+
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const form = document.querySelector('.search-report');
+                                form.addEventListener('submit', function (event) {
+                                    event.preventDefault();
+                                    const keyword = document.querySelector('input[name="reportKeyword"]').value;
+                                    const currentUrl = new URL(window.location.href);
+                                    currentUrl.searchParams.set('reportKeyword', keyword);
+                                    window.location.href = currentUrl.toString();
+                                });
+                            });
+                        </script>
+                    </div>
+                    <div class="d-flex w-25 my-auto justify-content-end">
+                        {{!-- old --}}
+                        {{!-- <button class="rounded-circle bg-dark-subtle d-flex mx-1 border-0"
+                            style="width: 2rem; height: 2rem">
+                            <i class="bi bi-chevron-compact-left m-auto"></i>
+                        </button>
+                        <button class="rounded-circle bg-danger d-flex mx-1 border-0" style="width: 2rem; height: 2rem">
+                            <span class="m-auto">1</span>
+                        </button>
+                        <button class="rounded-circle bg-dark-subtle d-flex mx-1 border-0"
+                            style="width: 2rem; height: 2rem">
+                            <i class="bi bi-chevron-compact-right m-auto"></i>
+                        </button> --}}
+                    </div>
+                </div>
+                <div class="container bg-white px-0" style="min-height: 50vh">
+                    <table class="table px-0 mb-0">
+                        <thead class="table-danger text-light">
+                            <tr>
+                                <td scope="col" class="border border-light-subtle">
+                                    Report Type
+                                </td>
+                                <td scope="col" class="border border-light-subtle">
+                                    Title
+                                </td>
+                                <td scope="col" class="border border-light-subtle">
+                                    Created Date
+                                </td>
+                                <td scope="col" class="border border-light-subtle">
+                                    Action
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            {{#each project.Reports}}
+                            <tr>
+                                <td scope="col" class="pt-3">
+                                    <div style="margin-top: 0.8rem">{{this.Type}}</div>
+                                </td>
+
+                                <td scope="col" class="pt-3">
+                                    <div style="margin-top: 0.8rem overflow-wrap: break-word; word-wrap: break-word; word-break: break-word;">{{this.Title}}</div>
+                                </td>
+                                <td scope="col" class="pt-3">
+                                    <div>
+                                        <span>{{formatDate2 this.CreatedAt}}</span>
+                                    </div>
+                                </td>
+
+                                <td scope="col" class="pt-3">
+                                    <div class="d-flex" style="margin-top: 0.8rem">
+                                        <a href="#" data-bs-toggle="modal"  data-bs-target="#editReport"
+                                            onclick="showEditReportModal(this)" data-report-id="{{this._id}}"
+                                            data-project-id="{{../project.ProjectID}}" 
+                                            data-report-type="{{this.Type}}"
+                                            data-title="{{this.Title}}" 
+                                            data-start-date="{{this.StartDate}}"
+                                            data-end-date="{{this.EndDate}}"
+                                            data-is-scheduled="{{this.IsScheduled}}"
+                                            title="Edit" class="my-auto mx-2">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+
+                                        <a href="#" data-bs-toggle="tooltip" data-projectId="{{../project.ProjectID}}"
+                                            data-report-id="{{this._id}}" title="Delete"
+                                            class="mx-2 my-auto text-danger delete-btn">
+                                            <i class="bi bi-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="container bg-white rounded-bottom d-flex justify-content-between py-4 mb-3">
+                    <div>
+
+                    </div>
+
+                    <div class="d-flex my-auto justify-content-end">
+                        {{{createPagination pagination paginationClass="pagination my-0"
+                        paginationStyle="justify-content-end"
+                        leftText="Prev" rightText="Next" }}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-1 d-flex my-auto" style="margin-right: -0.5rem; z-index: 1000; width: 20px">
+                <a href="#" id="toggleButtonNote">
+                    <div class="rounded bg-success d-flex text-white" style="width: 30px; height: 40px">
+                        <i class="bi bi-chevron-compact-right m-auto" id="toggleIconNote"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="col-4 right-col note-card mb-4">
+                <div class="container rounded bg-white h-100 my-3 px-3 py-4">
+                    <h6>Note:</h6>
+                    <div class="listNote">
+                        <ul class="p-0">
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">AS</strong>
+                                    <div>Activity Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">RS</strong>
+                                    <div>Releases Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">TRS</strong>
+                                    <div>Test Runs Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">IS</strong>
+                                    <div>Issue Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">RES</strong>
+                                    <div>Requirement Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">RTRS</strong>
+                                    <div>Recent Test Runs Status</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">RESS</strong>
+                                    <div>Result Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">CTS</strong>
+                                    <div>Case Traceability Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">TPS</strong>
+                                    <div>Test Plan Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">MS</strong>
+                                    <div>Module Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">CDS</strong>
+                                    <div>Case Detail Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">TRAS</strong>
+                                    <div>Test Run Assignee Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">TCSS</strong>
+                                    <div>Test Cases Steps Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">RTS</strong>
+                                    <div>Requirements Traceability Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">DSR</strong>
+                                    <div>Data Summary Report</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">TCAS</strong>
+                                    <div>Test Case Approval Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">RRS</strong>
+                                    <div>Release Requirement Summary</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                            <li class="d-flex justify-content-between mb-3">
+                                <div class="d-flex me-2">
+                                    <strong style="width: 4rem">MWTCR</strong>
+                                    <div>Module Wise Test Case Result</div>
+                                </div>
+                                <a href="#" class="read-more">Read More</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{! Modals}}
+    {{! modal add}}
+    <form action="/project/{{project.ProjectID}}/report" id="addReportForm" method="post">
+        <div class="modal fade" id="addReport" tabindex="-1" arialabelledby="addReportLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                <div class="modal-content border border-1 border-2" style="color: #919faf">
+                    <div class="modal-header">
+                        <div class="modal-title fs-5 fw-semibold text-dark w-100 text-center" id="addReportLabel">
+                            Add Report
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row p-3">
+                            <div class="col">
+                                <div class="mb-3 d-md-flex d-sm-block">
+                                    <label fors="fReports" class="form-label fw-bold col-md-3"
+                                        >Reports</label>
+                                    <div class="d-flex flex-column col-md-9">
+                                        <select class="form-select mb-3" id="fReports" name="reportType"
+                                            aria-label="Default select example">
+                                            <option selected value="Activity Summary">
+                                                Activity Summary
+                                            </option>
+                                            <option value="Releases Summary">Releases Summary</option>
+                                            <option value="Test Runs Summary">
+                                                Test Runs Summary
+                                            </option>
+                                            <option value="Issue Summary">Issue Summary</option>
+                                            <option value="Requirement Summary">
+                                                Requirement Summary
+                                            </option>
+                                            <option value="Recent Test Runs Status">
+                                                Recent Test Runs Status
+                                            </option>
+                                            <option value="Result Summary">Result Summary</option>
+                                            <option value="Case Traceability Summary">
+                                                Case Traceability Summary
+                                            </option>
+                                            <option value="Test Plan Summary">
+                                                Test Plan Summary
+                                            </option>
+                                            <option value="Module Summary">Module Summary</option>
+                                            <option value="Case Detail Summary">
+                                                Case Detail Summary
+                                            </option>
+                                            <option value="Test Run Assignee Summary">
+                                                Test Run Assignee Summary
+                                            </option>
+                                            <option value="Test Cases Steps Summary">
+                                                Test Cases Steps Summary
+                                            </option>
+                                            <option value="Requirements Traceability Summary">
+                                                Requirements Traceability Summary
+                                            </option>
+                                            <option value="Data Summary Report">
+                                                Data Summary Report
+                                            </option>
+                                            <option value="Test Case Approval Summary">
+                                                Test Case Approval Summary
+                                            </option>
+                                            <option value="Release Requirement Summary">
+                                                Release Requirement Summary
+                                            </option>
+                                            <option value="Module Wise Test Case Result">
+                                                Module Wise Test Case Result
+                                            </option>
+                                        </select>
+                                        <p class="text-secondary mb-0">
+                                            <strong>Note: </strong>Summary of Activities performed in
+                                            the project in a given time span including(Releases, Test
+                                            cases, Test Runs, and Issues)
+                                        </p>
+                                        <a href="#" class="read-more">Read more</a>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 d-md-flex d-sm-block">
+                                    <label id="titleLabel" for="title" class="form-label fw-bold col-md-3" >
+                                        Title 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-md-9">
+                                        <input class="form-control" id="title" name="title" type="text"
+                                            placeholder="Title..." aria-describedby="titleValidationFeedback titleLabel" />
+                                    
+                                        <div id="titleValidationFeedback" class="invalid-feedback">
+                                            Please fill in the title.
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="mb-3 d-md-flex d-sm-block">
+                                    <div class="fw-bold col-md-3">Duration</div>
+
+                                    <div class="col-md-9">
+                                        <div class="d-md-flex d-sm-block">
+                                            <label id="startDateLabel" for="startDate" class="form-label col-md-3">
+                                                Start date
+                                            </label>
+                                            <div class="d-flex flex-column col-md-6">
+                                                <input class="form-control has-validation" id="startDate"
+                                                name="startDate" type="datetime-local"
+                                                aria-describedby="startDateLabel startDateValidationFeedback" />
+                                                <div id="startDateValidationFeedback" class="invalid-feedback">
+                                                    Please make sure the start date is before the end date.
+                                                </div>
+                                            </div>   
+                                        </div>
+
+                                        <div class="d-md-flex d-sm-block">
+                                            <label id="endTimeLabel" for="endDate" class="form-label col-md-3" >
+                                                End date:
+                                            </label>
+                                            
+                                            <div class="d-flex flex-column col-md-6">
+                                                <input class="form-control has-validation" id="endDate" name="endDate" type="datetime-local"
+                                                    aria-described-by="endDateLabel endDateValidationFeedback" />
+                                                <div id="endDateValidationFeedback" class="invalid-feedback">
+                                                    Please make sure the start date is before the end date.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="mb-3 d-md-flex d-sm-block form-check form-switch ps-0">
+                                    <label class="form-check-label fw-bold col-6" for="fAccessingAndScheduling"
+                                        >Accessing
+                                        & Scheduling</label>
+                                    <div class="col-3">
+                                        <input class="form-check-input mx-0 mt-1" type="checkbox"
+                                            id="fAccessingAndScheduling" name="isScheduled" checked />
+                                    </div>
+                                </div>
+                                    <p class="text-secondary">
+                                        Note: Switching this ON will allow you to enable scheduled
+                                        Email Report and Accessing Controls
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-danger mx-2">
+                                Save and add
+                            </button>
+                            <button type="button" class="btn btn-outline-danger mx-2" data-bs-dismiss="modal">
+                                Cancel
+                            </button>
+                        </div>
+
+                    </div>
+                
+            </div>
+        </div>
+    </form>
+
+    {{! modal edit }}
+    <form action="" id="editReportForm">
+        <input type="hidden" name="reportIdEdit" id="reportIdEdit"/>
+        <input type="hidden" name="projectIdEdit" id="projectIdEdit"/>
+        <div class="modal fade" id="editReport" tabindex="-1"  arialabelledby="editReportLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                <div class="modal-content border border-1 border-2" style="color: #919faf">
+                    <div class="modal-header">
+                        <div class="modal-title fs-5 fw-semibold text-dark w-100 text-center" id="editReportLabel">
+                            Edit Report
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="row p-3">
+                            <div class="col">
+                                <div class="mb-3 d-md-flex d-sm-block">
+                                    <label fors="fReports" class="col-3 form-label fw-bold" >
+                                        Report type
+                                    </label>
+                                    <div class="d-flex flex-column col-9">
+                                        <select class="form-select mb-3" id="reportTypeEdit" name="reportTypeEdit"
+                                            aria-label="Default select example">
+                                            <option selected value="Activity Summary">
+                                                Activity Summary
+                                            </option>
+                                            <option value="Releases Summary">Releases Summary</option>
+                                            <option value="Test Runs Summary">
+                                                Test Runs Summary
+                                            </option>
+                                            <option value="Issue Summary">Issue Summary</option>
+                                            <option value="Requirement Summary">
+                                                Requirement Summary
+                                            </option>
+                                            <option value="Recent Test Runs Status">
+                                                Recent Test Runs Status
+                                            </option>
+                                            <option value="Result Summary">Result Summary</option>
+                                            <option value="Case Traceability Summary">
+                                                Case Traceability Summary
+                                            </option>
+                                            <option value="Test Plan Summary">
+                                                Test Plan Summary
+                                            </option>
+                                            <option value="Module Summary">Module Summary</option>
+                                            <option value="Case Detail Summary">
+                                                Case Detail Summary
+                                            </option>
+                                            <option value="Test Run Assignee Summary">
+                                                Test Run Assignee Summary
+                                            </option>
+                                            <option value="Test Cases Steps Summary">
+                                                Test Cases Steps Summary
+                                            </option>
+                                            <option value="Requirements Traceability Summary">
+                                                Requirements Traceability Summary
+                                            </option>
+                                            <option value="Data Summary Report">
+                                                Data Summary Report
+                                            </option>
+                                            <option value="Test Case Approval Summary">
+                                                Test Case Approval Summary
+                                            </option>
+                                            <option value="Release Requirement Summary">
+                                                Release Requirement Summary
+                                            </option>
+                                            <option value="Module Wise Test Case Result">
+                                                Module Wise Test Case Result
+                                            </option>
+                                        </select>
+
+                                        <p class="text-secondary mb-0">
+                                            <strong>Note: </strong>Summary of Activities performed in
+                                            the project in a given time span including(Releases, Test
+                                            cases, Test Runs, and Issues)
+                                        </p>
+                                        <a href="#" class="read-more">Read more</a>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 d-md-flex d-sm-block">
+                                    <label id="titleEditLabel" for="titleEdit" class="form-label fw-bold col-3" >
+                                        Title 
+                                        <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="col-9">
+                                        <input class="form-control" id="titleEdit" name="titleEdit" type="text"
+                                            placeholder="Title..." aria-describedby="titleEditValidationFeedback titleEditLabel"/>
+                                    
+                                        <div id="titleEditValidationFeedback" class="invalid-feedback">Please fill in the title.</div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 d-md-flex d-sm-block">
+                                    <div class="fw-bold col-3">Duration</div>
+
+                                    <div class="col-9">
+                                        <div class="d-md-flex d-sm-block">
+                                            <label class="col-3" for="startDateEdit">
+                                                Start date: 
+                                            </label>
+                                            <div class="col-6">
+                                                <input class="form-control has-validation" id="startDateEdit"
+                                                    name="startDateEdit" 
+                                                    type="datetime-local"
+                                                    aria-describedby="startDateEditLabel startDateEditValidationFeedback"/>
+                                                <div id="startDateEditValidationFeedback" class="invalid-feedback">
+                                                    Please make sure the start date is before the end date.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-md-flex d-sm-block">
+                                            <label for="endDateEdit" class="col-3">
+                                                End date: 
+                                            </label>
+                                            <div class="col-6">
+                                                <input class="form-control has-validation" 
+                                                    id="endDateEdit"
+                                                    name="endDateEdit" 
+                                                    type="datetime-local"
+                                                    aria-describedby="endDateEditLabel endDateEditValidationFeedback" />
+                                                <div id="endDateEditValidationFeedback" class="invalid-feedback">
+                                                    Please make sure the start date is before the end date.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="mb-3 d-md-flex d-sm-block form-check form-switch ps-0">
+                                    <label class="form-check-label fw-bold col-6" for="isScheduledEdit">
+                                        Accessing and Scheduling
+                                    </label>
+                                    <div class="md-6">
+                                        <input class="form-check-input mx-0 mt-1" type="checkbox" id="isScheduledEdit"
+                                            name="isScheduledEdit" checked />
+                                    </div>
+                                </div>
+                                    <p class="text-secondary">
+                                    Note: Switching this ON will allow you to enable scheduled
+                                    Email Report and Accessing Controls
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger mx-2">
+                            Save and edit
+                        </button>
+                        <button type="button" class="btn btn-outline-danger mx-2" data-bs-dismiss="modal">
+                            Cancel
+                        </button>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </form>
+
+</div>
+<script>
+    document.querySelectorAll(".pagination li").forEach((li, index) => {
+        li.classList.add("page-item");
+    });
+
+    document.querySelectorAll(".pagination a").forEach(a => {
+        a.classList.add("page-link");
+    });
+</script>
+
+<script src="/js/report-CRUD.js"></script>

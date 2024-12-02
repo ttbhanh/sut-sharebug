@@ -1,0 +1,108 @@
+<!-- modal details -->
+<div class="modal fade" id="testCaseModal" tabindex="-1" aria-labelledby="testCaseModalLabel" aria-hidden="true"
+    data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="testCaseModalLabel">Test Case Details</h5>
+                <button type="button" class="btn-close btnCloseDetail" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row gx-2 section_formField">
+                    <div class="col-12 form-field my-2 p-3 rounded bg-detail">
+                        <div class="d-flex text-center">
+                            <span class="text-white px-2" style="background-color: #f15752; border-radius: 30px;"
+                                id="testCaseId"></span>
+                            <div class="ms-3 fw-4 fw-semibold" id="testCaseTitle"></div>
+                        </div>
+                    </div>
+                    <div class="d-flex ps-0 pe-2">
+                        <div class="col-6 form-field my-2 p-3 me-2 rounded bg-detail">
+                            <label class="label label-revamp fw-semibold">Module</label>
+                            <div>
+                                <p class="text-revamp" id="testCaseModule"></p>
+                            </div>
+                        </div>
+                        <div class="col-6 form-field my-2 p-3 rounded bg-detail">
+                            <label class="label label-revamp fw-semibold">Template</label>
+                            <div class="d-inline-flex align-items-center justify-content-start w-100">
+                                <i class="bi bi-file-earmark-text" style="color: #00897b"></i>
+                                <div class="text-revamp ms-1">Test Case Text</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex ps-0 pe-2">
+                        <div class="col-6 form-field my-2 p-3 me-2 rounded bg-detail">
+                            <label class="label label-revamp fw-semibold">Priority</label>
+                            <div>
+                                <p class="text-revamp" id="testCasePriority"></p>
+                            </div>
+                        </div>
+                        <div class="col-6 form-field my-2 p-3 me-2 rounded bg-detail">
+                            <label class="label label-revamp fw-semibold">Created at</label>
+                            <div>
+                                <p class="text-revamp" id="testCaseCreatedAt"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 my-2 form-field pre-condition rounded bg-detail">
+                        <label class="label-revamp fw-semibold">Precondition</label>
+                        <div class="text-revamp" id="testCasePrecondition"></div>
+                    </div>
+                    <div class="col-12 my-2 form-field description-view rounded bg-detail">
+                        <label class="label label-revamp fw-semibold">Description</label>
+                        <div>
+                            <div class="text-revamp text-left" id="testCaseDescription"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnCloseDetail" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function showTestCaseModal(btn) {
+        const testCase = {
+            id: btn.getAttribute("data-id"),
+            title: btn.getAttribute("data-title"),
+            priority: btn.getAttribute("data-priority"),
+            precondition: btn.getAttribute("data-precondition"),
+            description: btn.getAttribute("data-description"),
+            moduleId: btn.getAttribute("data-module-id"),
+            createdAt: btn.getAttribute("data-created-at"),
+        };
+
+        document.querySelector("#testCaseId").innerText = testCase.id;
+        document.querySelector("#testCaseTitle").innerText = testCase.title;
+        document.querySelector("#testCasePriority").innerText = testCase.priority;
+        document.querySelector("#testCaseCreatedAt").innerText =
+            testCase.createdAt;
+        document.querySelector("#testCasePrecondition").innerText =
+            testCase.precondition;
+        document.querySelector("#testCaseDescription").innerText =
+            testCase.description;
+
+        const projectId = btn.dataset.projectIdEdit;
+        const moduleId = testCase.moduleId;
+        fetch(`/project/${projectId}/module/${moduleId}/name`)
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.ModuleName) {
+                    document.querySelector("#testCaseModule").innerText = data.ModuleName;
+                } else {
+                    // Handle case where module name is not found
+                    document.querySelector("#testCaseModule").innerText = "Module not found";
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching module name:", error);
+                document.querySelector("#testCaseModule").innerText =
+                    "Error fetching module name";
+            });
+    }
+</script>

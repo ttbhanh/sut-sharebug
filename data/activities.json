@@ -1,0 +1,102 @@
+[
+  {
+    "Title": "Logged in",
+    "Action": "Login",
+    "ActivityDate": "2024-06-01T08:30:00Z",
+    "CreatedAt": "2024-06-01T08:30:00Z",
+    "UpdatedAt": "2024-06-01T08:30:00Z",
+    "ModuleID": "66fa01ebe0d5ccc14eab0bdb",
+    "UserName": "John Doe",
+    "UserMail": "john.doe@example.com"
+  },
+  {
+    "Title": "Added new user",
+    "Action": "Create",
+    "ActivityDate": "2024-06-02T10:15:00Z",
+    "CreatedAt": "2024-06-02T10:15:00Z",
+    "UpdatedAt": "2024-06-02T10:15:00Z",
+    "ModuleID": "66fa01ebe0d5ccc14eab0bdb",
+    "UserName": "Jane Smith",
+    "UserMail": "jane.smith@example.com"
+  },
+  {
+    "Title": "Updated profile",
+    "Action": "Update",
+    "ActivityDate": "2024-06-03T14:20:00Z",
+    "CreatedAt": "2024-06-03T14:20:00Z",
+    "UpdatedAt": "2024-06-03T14:20:00Z",
+    "ModuleID": "66fa01ebe0d5ccc14eab0bdb",
+    "UserName": "Michael Johnson",
+    "UserMail": "michael.johnson@example.com"
+  },
+  {
+    "Title": "Viewed dashboard",
+    "Action": "View",
+    "ActivityDate": "2024-06-04T09:45:00Z",
+    "CreatedAt": "2024-06-04T09:45:00Z",
+    "UpdatedAt": "2024-06-04T09:45:00Z",
+    "ModuleID": "66fa01ebe0d5ccc14eab0bdb",
+    "UserName": "Emily Brown",
+    "UserMail": "emily.brown@example.com"
+  },
+  {
+    "Title": "Deleted product",
+    "Action": "Delete",
+    "ActivityDate": "2024-06-05T11:30:00Z",
+    "CreatedAt": "2024-06-05T11:30:00Z",
+    "UpdatedAt": "2024-06-05T11:30:00Z",
+    "ModuleID": "66fa01ebe0d5ccc14eab0bdb",
+    "UserName": "William Davis",
+    "UserMail": "william.davis@example.com"
+  },
+  {
+    "Title": "Sent feedback",
+    "Action": "Feedback",
+    "ActivityDate": "2024-06-06T16:00:00Z",
+    "CreatedAt": "2024-06-06T16:00:00Z",
+    "UpdatedAt": "2024-06-06T16:00:00Z",
+    "ModuleID": "66fa01ebe0d5ccc14eab0bdb",
+    "UserName": "John Doe",
+    "UserMail": "john.doe@example.com"
+  },
+  {
+    "Title": "Edited order",
+    "Action": "Edit",
+    "ActivityDate": "2024-06-07T13:20:00Z",
+    "CreatedAt": "2024-06-07T13:20:00Z",
+    "UpdatedAt": "2024-06-07T13:20:00Z",
+    "ModuleID": "66fa01ebe0d5ccc14eab0bdb",
+    "UserName": "William Davis",
+    "UserMail": "william.davis@example.com"
+  },
+  {
+    "Title": "Viewed product catalog",
+    "Action": "View",
+    "ActivityDate": "2024-06-08T10:00:00Z",
+    "CreatedAt": "2024-06-08T10:00:00Z",
+    "UpdatedAt": "2024-06-08T10:00:00Z",
+    "ModuleID": "66fa01f7e0d5ccc14eab0bef",
+    "UserName": "Michael Johnson",
+    "UserMail": "michael.johnson@example.com"
+  },
+  {
+    "Title": "Viewed shipping details",
+    "Action": "View",
+    "ActivityDate": "2024-06-09T15:45:00Z",
+    "CreatedAt": "2024-06-09T15:45:00Z",
+    "UpdatedAt": "2024-06-09T15:45:00Z",
+    "ModuleID": "66fa01f7e0d5ccc14eab0bef",
+    "UserName": "Emily Brown",
+    "UserMail": "emily.brown@example.com"
+  },
+  {
+    "Title": "Downloaded report",
+    "Action": "Download",
+    "ActivityDate": "2024-06-10T12:30:00Z",
+    "CreatedAt": "2024-06-10T12:30:00Z",
+    "UpdatedAt": "2024-06-10T12:30:00Z",
+    "ModuleID": "66fa01f0e0d5ccc14eab0be4",
+    "UserName": "Emily Brown",
+    "UserMail": "emily.brown@example.com"
+  }
+]

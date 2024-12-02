@@ -1,0 +1,199 @@
+<!-- Modal Structure -->
+<div class="modal fade" id="releaseModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Release Details</h5>
+                <button type="button" class="btn-close btnCloseDetail" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="tab-pane fade show active" id="ms-status">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <div class="header-container">
+                                        <strong class="milestone_title fw-5" id="releaseDetailName"></strong>
+                                    </div>
+                                    <div class="example-box-wrapper d-flex">
+                                        <div class="col-6" id="status-chart-container">
+                                            <canvas id="release_piechart" height="292" width="584"></canvas>
+                                        </div>
+                                        <div class="col-3 canvas-detail d-block" id="chart-details">
+                                            <span class="chart-heading" id="releaseDetailTotalTestRuns"></span>
+                                            <table class="chart-details-jit ms-2">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <div
+                                                                style="border: 1px solid #ccc; border: 1px solid var(--ccc-color-ie);padding:1px;margin: 6px;">
+                                                                <div
+                                                                    style="width:4px;height:0;border:5px solid #5CB85C;overflow:hidden; ">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <span id="releaseDetailPassed"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div
+                                                                style="border: 1px solid #ccc; border: 1px solid var(--ccc-color-ie);padding:1px;margin: 6px;">
+                                                                <div
+                                                                    style="width:4px;height:0;border:5px solid #F7464A;overflow:hidden; ">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <span id="releaseDetailFailed"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div
+                                                                style="border: 1px solid #ccc; border: 1px solid var(--ccc-color-ie);padding:1px;margin: 6px;">
+                                                                <div
+                                                                    style="width:4px;height:0;border:5px solid #46BFBD;overflow:hidden; ">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <span id="releaseDetailUntested"></span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div
+                                                                style="border: 1px solid #ccc; border: 1px solid var(--ccc-color-ie);padding:1px;margin: 6px;">
+                                                                <div
+                                                                    style="width:4px;height:0;border:5px solid #fdb45c;overflow:hidden; ">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <span id="releaseDetailOther"></span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-3 p-2 avg-count">
+                                            <span class="chart-heading">Avg. Test Execution/Day</span>
+                                            <span class="display-4" id="avgTestExecutionPerDay">0.38</span>
+                                        </div>
+                                    </div>
+                                    <div class="milestone-detail-jit">
+                                        <span class="chart-heading">Milestone Details</span>
+                                        <table class="table mt-2">
+                                            <thead>
+                                                <tr>
+                                                    <th>Milestone</th>
+                                                    <th>Start Date</th>
+                                                    <th>End Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td></td>
+                                                    <td class="milestone_startdate"></td>
+                                                    <td class="milestone_enddate"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btnCloseDetail" data-bs-dismiss="modal">Close</button>
+                {{!-- <button type="button" class="btn btn-danger">Edit</button> --}}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function renderChart(releaseDetail) {
+        var ctx = document.getElementById("release_piechart").getContext("2d");
+        var myPieChart = new Chart(ctx, {
+            type: "pie",
+            data: {
+                labels: ["Passed", "Failed", "Untested", "Other"],
+                datasets: [
+                    {
+                        data: [
+                            releaseDetail.StatusCounts.Passed,
+                            releaseDetail.StatusCounts.Failed,
+                            releaseDetail.StatusCounts.Untested,
+                            releaseDetail.StatusCounts.Other,
+                        ],
+                        backgroundColor: ["#5CB85C", "#F7464A", "#46BFBD", "#fdb45c"],
+                    },
+                ],
+            },
+        });
+        document.querySelector("#releaseDetailName").innerHTML = releaseDetail.Name;
+        document.querySelector(
+            "#releaseDetailTotalTestRuns"
+        ).innerHTML = `Total Test Runs: ${releaseDetail.TestRuns.length}`;
+        document.querySelector(
+            "#releaseDetailPassed"
+        ).innerHTML = `Passed : ${releaseDetail.StatusCounts.Passed}`;
+        document.querySelector(
+            "#releaseDetailFailed"
+        ).innerHTML = `Failed : ${releaseDetail.StatusCounts.Failed}`;
+        document.querySelector(
+            "#releaseDetailUntested"
+        ).innerHTML = `Untested : ${releaseDetail.StatusCounts.Untested}`;
+        document.querySelector(
+            "#releaseDetailOther"
+        ).innerHTML = `Other : ${releaseDetail.StatusCounts.Other}`;
+        document.querySelector(
+            ".milestone_startdate"
+        ).innerHTML = formatDate2(releaseDetail.StartDate);
+        document.querySelector(
+            ".milestone_enddate"
+        ).innerHTML = formatDate2(releaseDetail.EndDate);
+        document.querySelector("#avgTestExecutionPerDay").innerHTML = averageByDays(releaseDetail.TestRuns.length, releaseDetail.StartDate, releaseDetail.EndDate);
+    }
+
+    async function showReleaseDetails(e) {
+        e.preventDefault();
+        const element = e.currentTarget;
+        const projectId = element.dataset.projectId;
+        const releaseId = element.dataset.releaseId;
+        try {
+            let res = await fetch(`/project/${projectId}/release/${releaseId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            const data = await res.json();
+            if (res.status == 200) {
+                renderChart(data);
+                var modal = $("#releaseModal");
+                modal.modal("show");
+            } else {
+                throw new Error(data.message);
+            }
+        } catch (error) {
+            let toast = new bootstrap.Toast(document.querySelector(".toast"), {});
+            let toastBody = document.querySelector(".toast .toast-body");
+
+            toastBody.innerHTML = "Cannot view release!";
+            toastBody.classList.add("text-danger");
+            toast.show();
+
+            console.log(error);
+        }
+    }
+</script>

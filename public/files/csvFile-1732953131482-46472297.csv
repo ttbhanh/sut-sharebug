@@ -1,0 +1,2 @@
+Name;UserImg;IsAdmin;Email;Designation;Language;Locale;Status;Timezone;AccessType;ProjectID
+tét tơ;default-user-image.png;false;testImportUser@gmail.com;;English;;Active;;Tester;

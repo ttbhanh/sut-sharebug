@@ -1,0 +1,52 @@
+[
+  {
+    "_id": "66fa016ee0d5ccc14eab0b2a",
+    "Name": "Version 1.0",
+    "Description": "Initial release with basic features.",
+    "StartDate": "2024-06-01T00:00:00Z",
+    "EndDate": "2024-06-30T23:59:59Z",
+    "CreatedAt": "2024-06-01T00:00:00Z",
+    "UpdatedAt": "2024-06-01T00:00:00Z",
+    "ProjectID": "66fa0056e0d5ccc14eab0a2a"
+  },
+  {
+    "_id": "66fa016ee0d5ccc14eab0b2b",
+    "Name": "Version 1.1",
+    "Description": "Added new functionalities and bug fixes.",
+    "StartDate": "2024-07-01T00:00:00Z",
+    "EndDate": "2024-07-31T23:59:59Z",
+    "CreatedAt": "2024-07-01T00:00:00Z",
+    "UpdatedAt": "2024-07-01T00:00:00Z",
+    "ProjectID": "66fa0056e0d5ccc14eab0a2a"
+  },
+  {
+    "_id": "66fa016ee0d5ccc14eab0b2c",
+    "Name": "Version 2.0",
+    "Description": "Major update with redesigned UI.",
+    "StartDate": "2024-08-01T00:00:00Z",
+    "EndDate": "2024-08-31T23:59:59Z",
+    "CreatedAt": "2024-08-01T00:00:00Z",
+    "UpdatedAt": "2024-08-01T00:00:00Z",
+    "ProjectID": "66fa0056e0d5ccc14eab0a2a"
+  },
+  {
+    "_id": "66fa016ee0d5ccc14eab0b2d",
+    "Name": "Version 2.1",
+    "Description": "Added support for multiple languages.",
+    "StartDate": "2024-09-01T00:00:00Z",
+    "EndDate": "2024-09-30T23:59:59Z",
+    "CreatedAt": "2024-09-01T00:00:00Z",
+    "UpdatedAt": "2024-09-01T00:00:00Z",
+    "ProjectID": "66fa0056e0d5ccc14eab0a2a"
+  },
+  {
+    "_id": "66fa016ee0d5ccc14eab0b2e",
+    "Name": "Version 3.0",
+    "Description": "Introduced advanced reporting features.",
+    "StartDate": "2024-10-01T00:00:00Z",
+    "EndDate": "2024-10-31T23:59:59Z",
+    "CreatedAt": "2024-10-01T00:00:00Z",
+    "UpdatedAt": "2024-10-01T00:00:00Z",
+    "ProjectID": "66fa0056e0d5ccc14eab0a2a"
+  }
+]
