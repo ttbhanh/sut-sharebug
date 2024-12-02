@@ -1,4 +1,4 @@
-# web-dev-group7-final
+# SUT Sharebug
 
 ## Huong dan cai dat va trien khai
 
